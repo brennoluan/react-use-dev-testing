@@ -1,9 +1,10 @@
 import "@testing-library/jest-dom";
 
 import { TextDecoder, TextEncoder } from "node:util";
+import { mockFetch } from "./test-utils/mockFetch";
 
-globalThis.TextEncoder =
-  TextEncoder as unknown as typeof globalThis.TextEncoder;
+global.TextEncoder = TextEncoder as unknown as typeof global.TextEncoder;
 
-globalThis.TextDecoder =
-  TextDecoder as unknown as typeof globalThis.TextDecoder;
+global.TextDecoder = TextDecoder as unknown as typeof global.TextDecoder;
+
+global.fetch = mockFetch as jest.Mock;

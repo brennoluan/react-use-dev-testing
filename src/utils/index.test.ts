@@ -9,21 +9,25 @@ const products = [
     id: 1,
     name: "Produto 1",
     price: 10,
+    quantity: 1,
   },
   {
     id: 2,
     name: "Produto 2",
     price: 20,
+    quantity: 1,
   },
   {
     id: 3,
     name: "Produto 3",
     price: 30,
+    quantity: 1,
   },
   {
     id: 4,
     name: "Produto 4",
     price: 40,
+    quantity: 1,
   },
 ];
 
@@ -86,27 +90,27 @@ describe("Testando funcoes utilitarias do projeto", () => {
   });
   it("deve calcular corretamente com produtos de preço 0", () => {
     const result = calculateTotalPrice([
-      { id: 1, price: 0 },
-      { id: 2, price: 50 },
+      { id: 1, price: 0, quantity: 1 },
+      { id: 2, price: 50, quantity: 1 },
     ]);
     expect(result).toBe(50);
   });
   it("deve ignorar produtos com preço negativo", () => {
     const result = calculateTotalPrice([
-      { id: 1, price: -20 },
-      { id: 2, price: 70 },
+      { id: 1, price: -20, quantity: 1 },
+      { id: 2, price: 70, quantity: 1 },
     ]);
     expect(result).toBe(70);
   });
   it("deve retornar 0 se o desconto for 100%", () => {
-    const products = [{ id: 1, price: 100 }];
+    const products = [{ id: 1, price: 100, quantity: 1 }];
     const result = calculateTotalPriceWithDiscount(products, 100);
     expect(result).toBe(0);
   });
   it("deve calcular corretamente se os preços forem strings numéricas", () => {
     const products = [
-      { id: 1, price: "30" as unknown as number },
-      { id: 2, price: "20" as unknown as number },
+      { id: 1, price: "30" as unknown as number, quantity: 1 },
+      { id: 2, price: "20" as unknown as number, quantity: 1 },
     ];
     const result = calculateTotalPriceWithDiscount(products, 0);
     expect(result).toBe(50);

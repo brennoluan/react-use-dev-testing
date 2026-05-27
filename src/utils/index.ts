@@ -17,15 +17,15 @@ const toValidNonNegativePrice = (price: unknown): number => {
 };
 
 export const calculateTotalPrice = (
-  products: { id: number; price: number }[],
+  products: { id: number; price: number; quantity: number }[],
 ) => {
   return products.reduce((acc, product) => {
-    return acc + toValidNonNegativePrice(product.price);
+    return acc + toValidNonNegativePrice(product.price * product.quantity);
   }, 0);
 };
 
 export const calculateTotalPriceWithDiscount = (
-  products: { id: number; price: number }[],
+  products: { id: number; price: number; quantity: number }[],
   discount: number,
 ) => {
   if (
