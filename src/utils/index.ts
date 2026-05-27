@@ -1,14 +1,27 @@
 export const formatPrice = (price: number) => {
-  return price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  return price
+    .toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+    .replace(/\s/g, "");
 };
 
-export const calculateTotalPrice = (prices: number[]) => {
-  return prices.reduce((acc, price) => acc + price, 0);
+export const calculateTotalPrice = (
+  products: { id: number; price: number }[],
+) => {
+  return products.reduce((acc, product) => acc + product.price, 0);
 };
 
 export const calculateTotalPriceWithDiscount = (
-  prices: number[],
+  products: { id: number; price: number }[],
   discount: number,
 ) => {
-  return prices.reduce((acc, price) => acc + price, 0) * (1 - discount);
+  if (discount >= 100) return 0;
+
+  if (discount < 0 || typeof discount !== "number") {
+    return calculateTotalPrice(products);
+  }
+
+  return (
+    products.reduce((acc, product) => acc + product.price, 0) *
+    (1 - discount / 100)
+  );
 };
